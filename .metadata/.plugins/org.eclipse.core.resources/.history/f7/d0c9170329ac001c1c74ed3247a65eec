@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<% 
+request.setCharacterEncoding("utf-8");
+String name = request.getParameter("uname");
+	String id = request.getParameter("uid");
+	String pw = request.getParameter("upw");
+	String[] hobby = request.getParameterValues("hobby");// 체크박스는 같은 명칭으로 데이터가 여런 넘어오므로 배열처리
+%>
+
+가입이름 : <%= name %><br/>
+가입아이디 : <%= id %><br/>
+가입 비밀번호 : <%= pw %><br/>
+취미 : <%= hobby %><br/>
+</body>
+</html>
