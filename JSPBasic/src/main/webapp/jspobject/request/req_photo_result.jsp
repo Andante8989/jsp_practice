@@ -14,10 +14,12 @@
 
 선택은: <%= photo %> <br/>
 
-<% if (photo.equals("강아지")) { %>
-	<img src="01.png">
-<% } else if(photo.equals("풍차")) {%>
-     <img src="02.png">
-    <% } %>
+<%
+if (photo.equals("강아지")) { 
+	out.println("<img src='01.png'>"); 
+ } else if(photo.equals("풍차")) {
+    out.println("<img src='02.png'>");
+    } 
+%>
 </body>
 </html>

@@ -19,10 +19,8 @@
 <form action="http://localhost:8181/JSPBasic/jspobject/request/req_photo_result.jsp" method="get">
 	<table class="table table-hover table-info table-striped table-sm">
 		<thead>
-			<tr>
-				<td>사진 설명</td>
-				<td>선택</td>
-			</tr>
+			<th>사진 설명</th>
+			<th>선택</th>
 		</thead>
 		<tbody>
 			<tr>
