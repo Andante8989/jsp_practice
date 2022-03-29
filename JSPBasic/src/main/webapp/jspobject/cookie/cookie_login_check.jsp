@@ -34,6 +34,10 @@
 	
 	if (id.equals("abc1234")) {
 		if(pw.equals("1111")) {
+			// 로그인 성공시 쿠키를 생성하고, 로그인 완료 페이지에서는 해당 쿠키를 확인하게 만들어서 로그인 여부를 감지합니다.
+			Cookie loginOk = new Cookie("login_id", "abc1234");
+			loginOk.setMaxAge(1800);
+			response.addCookie(loginOk);
 			System.out.println("로그인하셨습니다. 환영합니다.");
 			response.sendRedirect("http://localhost:8181/JSPBasic/jspobject/cookie/login_ok.jsp");
 		} else {

@@ -2,6 +2,24 @@
     pageEncoding="UTF-8"%>
     
 <%
+	// 로그인을 이미 한 사용자가 로그인창으로 다시 접근할 경우
+	// login_ok.jsp로 강제로 이동시켜서 로그인창이 안 보이게 해 주세요
+	
+	// 1. 쿠키 목록을 들고와야 검사가 가능함
+	Cookie[] cookies = request.getCookies();
+
+	// 2. 반복문으로 해당 배열 내 쿠키의 이름을 순차적으로 검사
+	if(cookies != null) { // 쿠키가 아예없을때 오류날수 있으므로 if문 추가
+		for(Cookie cookie : cookies) {
+			String cookieName = cookie.getName();
+			// 3. 만약 배열 내에 로그인으로 인해 발급된 쿠키 검출시 로그인 완료 페이지로 보내버림
+			if((cookieName != null) && (cookieName.equals("login_id"))) {
+				response.sendRedirect("http://localhost:8181/JSPBasic/jspobject/cookie/login_ok.jsp");
+			}
+		}
+	}
+	
+
 %>
 <!DOCTYPE html>
 <html>

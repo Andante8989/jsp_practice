@@ -7,7 +7,7 @@
 	Cookie apple = new Cookie("apple_cookie", "사과맛쿠키");
 	Cookie peanut = new Cookie("peanut_cookie", "땅콩맛쿠키");
 	
-	// 2. 쿠키클래스의 seteer 메서드들을 이용해 쿠키의 속성을 설정
+	// 2. 쿠키클래스의 setter 메서드들을 이용해 쿠키의 속성을 설정
 	apple.setMaxAge(3600); // 쿠키의 유효시간을 1시간(3600초)로 설정, 기본은 30분(1800초)
 	peanut.setMaxAge(20); // 20초로 설정
 	
