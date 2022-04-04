@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<form action="getUserInfo.jsp">
+	<input type="text" name="userId">
+	<input type="submit" value="제출">
+</form>
 </body>
 </html>
