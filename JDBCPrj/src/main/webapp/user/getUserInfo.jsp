@@ -37,11 +37,17 @@
 <body>
 	<%
 		// 4. body 내부에 xx 유저의 정보입니다 라는 문장과 함께 전체 정보가 나오도록 코드를 짜주세요
-		rs.next();
+		
 	    // 5. 폼에서 전달한 아이디를 처리할 수 있도록 getUserInfoForm.jsp를 추가해주세요.
-	%>
-	
-	<%= userId %> 유저의 정보입니다.
+	    if(rs.next()) {
+%>    	
+	<h1><%= rs.getString(1) %>유저의 정보입니다</h1>
+	비번 : <%= rs.getString(2) %><br/>
+	이름 : <%= rs.getString(3) %><br/>
+	이메일 : <%= rs.getString(4) %><br/>
+	<%  } else {%>
+		<h3><%= userId %>계정은 존재하지 않습니다.</h3>
+	<% } %>
 		
 </body>
 </html>
