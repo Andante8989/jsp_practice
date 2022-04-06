@@ -7,7 +7,12 @@
 <% 
 
 String id = (String)session.getAttribute("s_id");
-
+// 로그인 안했다면 redirect로 로그인창으로 보내기
+if(id == null) {
+	response.sendRedirect("userLoginForm.jsp");
+}
+session.invalidate();
+// 로그인 된 유저라면 해당 유저의 세셧ㄴ에 있던 아이디를 이용해 회원탈퇴 로직 실행
 String dbType = "com.mysql.cj.jdbc.Driver";
 String connectUrl = "jdbc:mysql://localhost:3306/jdbcprac2?serverTimezone=UTC";
 String connectId = "root";

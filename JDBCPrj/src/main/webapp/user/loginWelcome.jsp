@@ -18,7 +18,7 @@ if(id == null) {
 <form action="userOutCheck.jsp" method="post">
 <input type="submit" value="회원탈퇴하기">
 </form>
-<form action="userChange.jsp" method="post">
+<form action="userUpdateForm.jsp" method="post">
 <input type="submit" value="회원정보수정하기">
 </form>
 </body>

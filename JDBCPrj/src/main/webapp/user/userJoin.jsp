@@ -8,7 +8,7 @@
 </head>
 <body>
 <h3>회원가입을 환영합니다.</h3>
-<form action="joinCheck.jsp">
+<form action="joinCheck.jsp" method="post">
 	<input type="text" name="joinId" placeholder="가입할 아이디를 입력하세요"><br/>
 	<input type="password" name="joinPw" placeholder="가입할 비밀번호를 입력하세요"><br/>
 	<input type="text" name="joinName" placeholder="가입할 이름을 입력하세요"><br/>
