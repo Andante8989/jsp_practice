@@ -33,4 +33,14 @@ public class UserVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	@Override
+	public String toString() {
+		return "UserVO [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", email=" + email + "]";
+	}
+	
+	
+	// toString 도 생성해주면, System.out.println()과 같은 조회구문에서
+	// 자료 주소값 대신 실제로 들어있는 데이터를 화면에 보여줍니다
+	// 우클릭 -> source -> generateToString() 실행 -> 모든변수 선택후 생성
+	
 }
