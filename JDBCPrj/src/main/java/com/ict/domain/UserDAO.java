@@ -82,5 +82,85 @@ public class UserDAO {
     	}
     	
     	return userList;
-    }
-}
+    } // getAllUserList() 끝나는 지점
+    
+    // 쿼리문 내에 ? 가 있다면
+    // ?개수만큼 사용자가 입력해야 하게 합니다
+    // 그래서 메소드에 요청 파라미터로
+    // ?개수만큼 선언해줍니다.
+    public UserVO getUserInfo(String userId) {
+    	// try 블럭 진입 전에 .close()로 닫는 요소들을
+    	// 모두 선언해주도록 코드를 고칩니다
+    	Connection con = null;
+    	ResultSet rs = null;
+    	PreparedStatement pstmt = null;
+    	//유저정보를 저장할 수 있는 변수를 생성합니다
+    	UserVO user = new UserVO();
+    	
+    	try {
+    		con = DriverManager.getConnection(connectUrl, connectId, connectPw);
+    		
+    		String sql = "SELECT * FROM userinfo WHERE user_id=?";  
+    		pstmt = con.prepareStatement(sql);
+    		pstmt.setString(1, userId);
+    		rs = pstmt.executeQuery();
+    		// rs내부 데이터를 user변수에 옮겨넣어주세요(setter 사용)
+    		System.out.println("데이터 입력 전 : " + user);
+    		if(rs.next()); {
+    			user.setUserId(rs.getString(1));
+        		user.setUserPw(rs.getString(2));
+        		user.setUserName(rs.getString(3));
+        		user.setEmail(rs.getString(4));
+    		}
+    		System.out.println("데이터 입력 후 : " + user);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		try {
+    			con.close();
+    			rs.close();
+    			pstmt.close();
+    		} catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	return user;
+    } // getUserInfo() 끝나는지점
+  
+    public UserVO userLoginCheck(String userId) {
+    	Connection con = null;
+    	ResultSet rs = null;
+    	PreparedStatement pstmt = null;
+    	
+    	UserVO user = new UserVO();
+    	
+    	try {
+    		con = DriverManager.getConnection(connectUrl, connectId, connectPw);
+    		
+    		String sql = "SELECT * FROM userinfo WHERE user_id=?";  
+    		pstmt = con.prepareStatement(sql);
+    		pstmt.setString(1, userId);
+    		rs = pstmt.executeQuery(); 
+    		System.out.println("데이터 입력 전 : " + user);
+    		if(rs.next()); {
+    			user.setUserId(rs.getString(1));
+        		user.setUserPw(rs.getString(2));
+        		user.setUserName(rs.getString(3));
+        		user.setEmail(rs.getString(4));
+    		}
+    		System.out.println("데이터 입력 후 : " + user);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		try {
+    			con.close();
+    			rs.close();
+    			pstmt.close();
+    		} catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	return user;
+    } // userLoginCheck 끝나는 지점
+} // UserDAO 끝나는 지점
+

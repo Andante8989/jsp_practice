@@ -1,3 +1,6 @@
+<%@page import="com.ict.domain.UserVO"%>
+<%@page import="com.ict.domain.UserDAO"%>
+<%@page import="java.util.List"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
@@ -7,8 +10,44 @@
 <%
     // 1. userId 라는 이름으로 전달되는 데이터를 받으면(request.get???)
     String userId = request.getParameter("userId");
-    // 2. DB연동 후
-    String dbType = "com.mysql.cj.jdbc.Driver";
+    
+	// - DAO생성(MySQL을 쓴다고 지정)
+    UserDAO dao = new UserDAO();   // 생성과 동시에 Class.forName(디비타입) 까지 호출
+  
+	// - DAO 내부 메서드인 getUserInfo(유저명) 호출
+    UserVO user = dao.getUserInfo(userId); 
+	System.out.println("유저 정보 확인 : " + user);
+	out.println(user + "<br/>");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+ <table border="1">
+      <thead>
+         <th>아이디</th>
+         <th>비밀번호</th>
+         <th>이름</th>
+         <th>이메일</th>
+      </thead>
+      <tbody>
+		<!-- 유저 정보를 여기에 작성해주세요 -->
+			<tr>
+      			  <td><%= user.getUserId() %></td>
+      			  <td><%= user.getUserPw() %></td>
+      			  <td><%= user.getUserName() %></td>
+      			  <td><%= user.getEmail() %></td>
+      		</tr>
+		</tbody>
+</body>
+</html>
+
+<%
+ /*
+  String dbType = "com.mysql.cj.jdbc.Driver";
 	String connectUrl = "jdbc:mysql://localhost:3306/jdbcprac2?serverTimezone=UTC";
 	String connectId = "root";
 	String connectPw = "mysql";
@@ -24,30 +63,4 @@
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
-	 
-    // 3. 해당 아이디의 정보만 ResultSet에 받아와서
-    
-%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<%
-		// 4. body 내부에 xx 유저의 정보입니다 라는 문장과 함께 전체 정보가 나오도록 코드를 짜주세요
-		
-	    // 5. 폼에서 전달한 아이디를 처리할 수 있도록 getUserInfoForm.jsp를 추가해주세요.
-	    if(rs.next()) {
-%>    	
-	<h1><%= rs.getString(1) %>유저의 정보입니다</h1>
-	비번 : <%= rs.getString(2) %><br/>
-	이름 : <%= rs.getString(3) %><br/>
-	이메일 : <%= rs.getString(4) %><br/>
-	<%  } else {%>
-		<h3><%= userId %>계정은 존재하지 않습니다.</h3>
-	<% } %>
-		
-</body>
-</html>
+	*/ %>

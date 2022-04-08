@@ -31,6 +31,14 @@
          <th>이메일</th>
       </thead>
       <tbody>
+      		<% for(UserVO user : userList) { %>
+      			<tr>
+      			  <td><%= user.getUserId() %></td>
+      			  <td><%= user.getUserPw() %></td>
+      			  <td><%= user.getUserName() %></td>
+      			  <td><%= user.getEmail() %></td>
+      			</tr>
+      		<%} %>
       </tbody>
    </table>
 </form>

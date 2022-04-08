@@ -1,3 +1,4 @@
+<%@page import="com.ict.domain.UserDAO"%>
 <%@page import="com.ict.domain.UserVO"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.DriverManager"%>
@@ -13,8 +14,44 @@
 	// 추후 DB에서 꺼낸 아이디와 패스워드를 저장할 변수 
 	String dbId = null;
 	String dbPw = null;
+	String reUrl = null;
+	// 1. DAO를 생성합니다,
+	UserDAO dao = new UserDAO();
+	// 2. form에서 보내온 유저 아이디를 이용해 해당 유저의 전체 정보를 다들고 옵니다.
+	UserVO user = dao.userLoginCheck(formId);
+	// 3. 들고온 유저 아이디에서 getter로 비밀번호도 뽑을수 있으니 비교해서 로그인 처리가 됩니다.
+	// 먼저, DB에 들어있던 id와 pw를 가져옵니다.
+	dbId = user.getUserId(); // 해당아이디가 DB에 없을경우 null이 저장됨
+	dbPw = user.getUserPw();
+	if(dbId != null && formId.equals(dbId)) {
+		if(formPw.equals(dbPw)) {
+			session.setAttribute("s_id", formId);
+			reUrl = "loginWelcome.jsp";
+		} else {
+			reUrl = "userPwFail.jsp";
+		}
+	} else {
+		reUrl = "userIdFail.jsp";
+	}
+	response.sendRedirect(reUrl);
 
-	// DB와 연동해서 formId에 해당하는 유저 전체 정보를 받아줍니다.(getUserInfo.jsp로직을 참조)
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+
+</body>
+</html>
+
+<%
+/*
+//DB와 연동해서 formId에 해당하는 유저 전체 정보를 받아줍니다.(getUserInfo.jsp로직을 참조)
 	String dbType = "com.mysql.cj.jdbc.Driver";
 	String connectUrl = "jdbc:mysql://localhost:3306/jdbcprac2?serverTimezone=UTC";
 	String connectId = "root";
@@ -77,18 +114,7 @@
 		response.sendRedirect(reUrl);
 	
 	
-	
+	*/
+
 
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-
-
-</body>
-</html>
