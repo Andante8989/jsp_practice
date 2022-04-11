@@ -1,3 +1,4 @@
+<%@page import="com.ict.domain.UserDAO"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
@@ -11,6 +12,23 @@ String joinPw = request.getParameter("joinPw");
 String joinName = request.getParameter("joinName");
 String joinEmail = request.getParameter("joinEmail");
 
+UserDAO dao = new UserDAO();
+dao.joinCheck(joinId, joinPw, joinName, joinEmail);
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>가입을 축하합니다.</h3>
+<a href="userLoginForm.jsp">로그인하러가기</a>
+</body>
+</html>
+
+<%
+/*
 
 String dbType = "com.mysql.cj.jdbc.Driver";
 String connectUrl = "jdbc:mysql://localhost:3306/jdbcprac2?serverTimezone=UTC";
@@ -33,15 +51,7 @@ try {
 	e.printStackTrace();
 }
 
+*/
+
+
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<h3>가입을 축하합니다.</h3>
-<a href="userLoginForm.jsp">로그인하러가기</a>
-</body>
-</html>

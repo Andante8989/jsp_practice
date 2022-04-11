@@ -1,3 +1,5 @@
+<%@page import="com.ict.domain.UserVO"%>
+<%@page import="com.ict.domain.UserDAO"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
@@ -12,7 +14,39 @@ String id = (String)session.getAttribute("s_id");
 if (id == null) {
 	response.sendRedirect("userLoginForm.jsp");
 }
+UserDAO dao = new UserDAO(); 
+UserVO user = dao.getUserInfo(id);
 
+
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+  
+	<h1><%=user.getUserId()%>님의 정보를 수정합니다.</h1>
+	<form>
+	아이디 : <input type="text" value="<%=id %>"><br/>
+	비밀번호 : <input type="text" value="<%=user.getUserPw()%>"><br/>
+	이름 : <input type="text" value="<%=user.getUserName()%>"><br/>
+	이메일 : <input type="text" value="<%=user.getEmail()%>"><br/>
+	
+	
+	</form>
+<form action="userUpdateCheck.jsp" method="post">
+	<input type="password" name="chPw" placeholder="수정할 비밀번호를 입력하세요"><br/>
+	<input type="text" name="chName" placeholder="수정할 이름을 입력하세요"><br/>
+	<input type="text" name="chEmail" placeholder="수정할 이메일을 입력하세요"><br/>
+	<input type="submit" value="제출" class="btn btn-primary btn-sm">
+</form>
+</body>
+</html>
+
+<% 
+/*
 String dbType = "com.mysql.cj.jdbc.Driver";
 String connectUrl = "jdbc:mysql://localhost:3306/jdbcprac2?serverTimezone=UTC";
 String connectId = "root";
@@ -30,29 +64,5 @@ try {
 	e.printStackTrace();
 	
 }
+*/
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-   <%if (rs.next()) { %>
-	<h1><%=rs.getString(1) %>님의 정보를 수정합니다.</h1>
-	<form>
-	아이디 : <input type="hidden" value="<%=id %>"><br/>
-	비밀번호 : <input type="text" value="<%=rs.getString(2)%>"><br/>
-	이름 : <input type="text" value="<%=rs.getString(3)%>"><br/>
-	이메일 : <input type="text" value="<%=rs.getString(4)%>"><br/>
-	
-	<% } %>
-	</form>
-<form action="userUpdateCheck.jsp" method="post">
-	<input type="password" name="chPw" placeholder="수정할 비밀번호를 입력하세요"><br/>
-	<input type="text" name="chName" placeholder="수정할 이름을 입력하세요"><br/>
-	<input type="text" name="chEmail" placeholder="수정할 이메일을 입력하세요"><br/>
-	<input type="submit" value="제출" class="btn btn-primary btn-sm">
-</form>
-</body>
-</html>
