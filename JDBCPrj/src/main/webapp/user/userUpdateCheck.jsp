@@ -15,7 +15,7 @@ String chEmail = request.getParameter("chEmail");
 
 session.invalidate();
 
-UserDAO dao = new UserDAO();
+UserDAO dao = UserDAO.getInstance();
 dao.userUpdateCheck(chPw, chName, chEmail, id);
 
 %>

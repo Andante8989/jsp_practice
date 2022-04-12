@@ -14,7 +14,7 @@ String id = (String)session.getAttribute("s_id");
 if (id == null) {
 	response.sendRedirect("userLoginForm.jsp");
 }
-UserDAO dao = new UserDAO(); 
+UserDAO dao = UserDAO.getInstance(); 
 UserVO user = dao.getUserInfo(id);
 
 

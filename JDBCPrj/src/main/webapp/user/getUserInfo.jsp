@@ -12,7 +12,7 @@
     String userId = request.getParameter("userId");
     
 	// - DAO생성(MySQL을 쓴다고 지정)
-    UserDAO dao = new UserDAO();   // 생성과 동시에 Class.forName(디비타입) 까지 호출
+     UserDAO dao = UserDAO.getInstance();// 생성과 동시에 Class.forName(디비타입) 까지 호출
   
 	// - DAO 내부 메서드인 getUserInfo(유저명) 호출
     UserVO user = dao.getUserInfo(userId); 

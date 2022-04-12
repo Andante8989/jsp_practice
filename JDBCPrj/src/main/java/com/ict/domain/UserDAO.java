@@ -7,24 +7,63 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
+
+
 // DAO클래스는 DB연동시 반복적으로 작성하는 코드를 중복 작성하지 않기 위해 작성합니다.
 public class UserDAO {
 	// DB접속시 필요한 변수들을 아래에 선언합니다.
-	private String dbtype = "com.mysql.cj.jdbc.Driver";
-	private String connectUrl = "jdbc:mysql://localhost:3306/jdbcprac2?serverTimezone=UTC";
-	private String connectId = "root";
-    private String connectPw = "mysql";
+	//private String dbtype = "com.mysql.cj.jdbc.Driver";
+	//private String connectUrl = "jdbc:mysql://localhost:3306/jdbcprac2?serverTimezone=UTC";
+	//private String connectId = "root";
+    //private String connectPw = "mysql";
+    private DataSource ds;
     
     // 생성자를 이용해 생성할 때 자동으로 Class.forName()을 세팅하게 만들어줍니다
     // 어떤 쿼리문을 실행하더라도 위의 DB접속 변수와 DB종류지정은 무조건 하기에 생성자로 생성합니다.
     
-    public UserDAO() {
+   /* public UserDAO() {
+    	// DataSource를 사용하도록 생성자 로직 변경
     	try {
-    		Class.forName(dbtype);
+    		Context ct = new InitialContext();
+    		ds = (DataSource)ct.lookup("java:comp/env/jdbc/mysql");
     	} catch(Exception e) {
-    		
+    		e.printStackTrace();
+    	}
+    } */
+    
+    
+    
+    // 싱글턴 패턴 처리
+    // DAO 내부에 멤버변수로 자기 자신(현 파일의 클래스명은 UserDAO 이므로 UserDAO 타입 변수 하나 생성)
+    private static UserDAO dao = new UserDAO();
+    // 싱글턴은 요청시마다 DAO를 매번 새로 생성하지 않고, 먼저 하나를 생성해둔 다음
+    // 사용자 요청때는 이미 생성된 DAO의 주소값만 공유해서
+    // DAO 생성에 필요한 시간을 절약하기 위해 사용합니다.
+    
+    // 싱글턴 -1 . 생성자는 private으로 처리해 외부에서 생성명령을 내릴 수 없게 처리합니다
+    private UserDAO() {
+    	try {
+    		Context ct = new InitialContext();
+    		ds = (DataSource)ct.lookup("java:comp/env/jdbc/mysql");
+    	} catch (Exception e) {
+    		e.printStackTrace();
     	}
     }
+    
+    // 싱글턴 -2. static 키워드를 이용해서 단 한번만 생성하고, 그 이후로는
+    // 주소를 공유하는 getInstance()메서드를 생성합니다.
+    public static UserDAO getInstance() {
+    	if(dao == null) {
+    		dao = new UserDAO();
+    	}
+    	return dao;
+    }
+    
+    
     
     // getAllUserList.jsp의 핵심 로직을 DAO로 옮겨서 작성해보겠습니다
     // getAllUserList는 전체 유저목록을 출력해주고 있기 때문에
@@ -45,7 +84,7 @@ public class UserDAO {
     	// 필요한 모든 변수가 선언되었다면 try블럭을 선언합니다
     	try {
     		// connection 생성
-    	    con = DriverManager.getConnection(connectUrl, connectId, connectPw);
+    	    con = ds.getConnection(); // context.xml 내부에 디비종류, 접속url, mysql, 비번이 기입됨
     		// 쿼리문 저장
     		String sql = "SELECT * FROM userinfo";
     		// PreparedStatement에 쿼리문 입력
@@ -98,7 +137,7 @@ public class UserDAO {
     	UserVO user = new UserVO();
     	
     	try {
-    		con = DriverManager.getConnection(connectUrl, connectId, connectPw);
+    		con = ds.getConnection();
     		
     		String sql = "SELECT * FROM userinfo WHERE user_id=?";  
     		pstmt = con.prepareStatement(sql);
@@ -135,7 +174,7 @@ public class UserDAO {
     	UserVO user = new UserVO();
     	
     	try {
-    		con = DriverManager.getConnection(connectUrl, connectId, connectPw);
+    		con = ds.getConnection();
     		
     		String sql = "SELECT * FROM userinfo WHERE user_id=?";  
     		pstmt = con.prepareStatement(sql);
@@ -172,7 +211,7 @@ public class UserDAO {
        PreparedStatement pstmt = null;
        // DELETE구문은 결과(grid)가 나오지 않기때문에 UserVO도 필요가없다
        try {
-    	   con = DriverManager.getConnection(connectUrl, connectId, connectPw);
+    	   con = ds.getConnection();
     	   String sql = "DELETE FROM userinfo WHERE user_id=?";
     	   pstmt = con.prepareStatement(sql);
     	   pstmt.setString(1, userId);
@@ -193,7 +232,7 @@ public class UserDAO {
     	Connection con = null;
     	PreparedStatement pstmt = null;
     	try {
-    		con = DriverManager.getConnection(connectUrl, connectId, connectPw);
+    		con = ds.getConnection();
     		String sql = "INSERT INTO userinfo VALUES(?, ?, ?, ?)";
     		pstmt = con.prepareStatement(sql);
     		pstmt.setString(1, userId);
@@ -218,7 +257,7 @@ public class UserDAO {
     	Connection con = null;
     	PreparedStatement pstmt = null;
     	try {
-    		con = DriverManager.getConnection(connectUrl, connectId, connectPw);
+    		con = ds.getConnection();
     		String sql = "UPDATE userinfo SET user_pw=?, user_name=?, email=? WHERE user_id=?";
     		pstmt = con.prepareStatement(sql);
     		pstmt.setString(1, userPw);

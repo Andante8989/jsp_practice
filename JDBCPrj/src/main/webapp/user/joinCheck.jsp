@@ -12,7 +12,7 @@ String joinPw = request.getParameter("joinPw");
 String joinName = request.getParameter("joinName");
 String joinEmail = request.getParameter("joinEmail");
 
-UserDAO dao = new UserDAO();
+UserDAO dao = UserDAO.getInstance();
 dao.joinCheck(joinId, joinPw, joinName, joinEmail);
 %>
 <!DOCTYPE html>

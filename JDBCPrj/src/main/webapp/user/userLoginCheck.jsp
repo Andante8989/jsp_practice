@@ -16,7 +16,7 @@
 	String dbPw = null;
 	String reUrl = null;
 	// 1. DAO를 생성합니다,
-	UserDAO dao = new UserDAO();
+	 UserDAO dao = UserDAO.getInstance();
 	// 2. form에서 보내온 유저 아이디를 이용해 해당 유저의 전체 정보를 다들고 옵니다.
 	UserVO user = dao.userLoginCheck(formId);
 	// 3. 들고온 유저 아이디에서 getter로 비밀번호도 뽑을수 있으니 비교해서 로그인 처리가 됩니다.

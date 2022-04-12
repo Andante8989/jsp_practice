@@ -10,7 +10,8 @@
 
 <%
   // 아래쪽에 원래 작성된 접속 로직 저장되어있음
-  UserDAO dao = new UserDAO();   // 생성과 동시에 Class.forName(디비타입) 까지 호출
+  //UserDAO dao = new UserDAO();   // 생성과 동시에 Class.forName(디비타입) 까지 호출
+  UserDAO dao = UserDAO.getInstance(); //싱글턴에 의해 static영역 변수 주소만 받아옴
   List<UserVO> userList = dao.getAllUserList();  // DB연결해 전체 목록 가져다 주고 종료
   out.println("DAO에서 전달받은 자료들 : " + userList);	    
 

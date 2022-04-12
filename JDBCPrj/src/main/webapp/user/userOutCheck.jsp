@@ -16,7 +16,7 @@ session.invalidate();
 // 로그인 된 유저라면 해당 유저의 세셧ㄴ에 있던 아이디를 이용해 회원탈퇴 로직 실행
 
 // DAO 생성
-UserDAO dao = new UserDAO();
+ UserDAO dao = UserDAO.getInstance();
 // deleteUser(유저명) 호출
 dao.userOutCheck(id);
 
