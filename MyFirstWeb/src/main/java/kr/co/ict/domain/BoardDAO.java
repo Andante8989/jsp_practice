@@ -117,6 +117,30 @@ public class BoardDAO {
 		}
 		return board;
 	}
+	
+	public void boardInsert(String title, String content, String writer) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			String sql = "INSERT INTO boardTbl(title, content, writer) VALUES(?, ?, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setString(3, writer);
+			pstmt.executeUpdate();	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+				pstmt.close();	
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	} // boardInsert 끝나는 지점
 
 
 }

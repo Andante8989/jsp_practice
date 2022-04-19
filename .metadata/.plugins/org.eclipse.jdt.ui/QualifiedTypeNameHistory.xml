@@ -14,6 +14,6 @@
     <fullyQualifiedTypeName name="java.sql.ResultSet"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="java.util.List"/>
-    <fullyQualifiedTypeName name="kr.co.ict.domain.BoardDAO"/>
     <fullyQualifiedTypeName name="kr.co.ict.domain.BoardVO"/>
+    <fullyQualifiedTypeName name="kr.co.ict.domain.BoardDAO"/>
 </qualifiedTypeNameHistroy>

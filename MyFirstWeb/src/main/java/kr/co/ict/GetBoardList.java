@@ -17,13 +17,13 @@ import kr.co.ict.domain.BoardVO;
  * Servlet implementation class getBoardList
  */
 @WebServlet("/boardList")
-public class getBoardList extends HttpServlet {
+public class GetBoardList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public getBoardList() {
+    public GetBoardList() {
         super();
         // TODO Auto-generated constructor stub
     }
