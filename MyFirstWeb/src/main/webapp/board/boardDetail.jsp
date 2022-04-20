@@ -15,5 +15,11 @@
 	글쓴이 : <input type="text" value="${board.writer }"><br/>
 	쓴날짜 : ${board.bdate }
 	마지막 쓴날짜 : ${board.mdate }
+	<hr/>
+	<!--  삭제번호를 서블릿 boardDelete로 보내야함 -->
+	<form action="http://localhost:8181/MyFirstWeb/boardDelete" method="post">
+		<input type="hidden" name="boardNum" value="${board.boardNum }">
+		<input type="submit" value="삭제">
+	</form>
 </body>
 </html>

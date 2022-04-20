@@ -47,7 +47,7 @@ public class BoardDAO {
 		
 		try {
 			con = ds.getConnection();
-			String sql = "SELECT * FROM boardTbl";
+			String sql = "SELECT * FROM boardTbl ORDER BY board_num DESC";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -138,9 +138,31 @@ public class BoardDAO {
 				pstmt.close();	
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
+			} 
 		}
 	} // boardInsert 끝나는 지점
+	
+	public void boardDelete(int boardNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			String sql = "DELETE FROM boardTbl WHERE board_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardNum);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+				pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	} // boardDelete 끝나는 지점
 
 
 }
