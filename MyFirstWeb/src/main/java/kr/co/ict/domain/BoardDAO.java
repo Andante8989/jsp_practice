@@ -163,6 +163,30 @@ public class BoardDAO {
 			}
 		}
 	} // boardDelete 끝나는 지점
-
+	
+	public void boardUpdate(String title, String content, String writer, int boardNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			String sql = "UPDATE boardTbl SET title=?, content=?, writer=? WHERE board_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setString(3, writer);
+			pstmt.setInt(4, boardNum);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+				pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	} // boardDelete 끝나는 지점
 
 }

@@ -21,5 +21,10 @@
 		<input type="hidden" name="boardNum" value="${board.boardNum }">
 		<input type="submit" value="삭제">
 	</form>
+	<a href="http://localhost:8181/MyFirstWeb/boardList"><button>목록으로 돌아가기</button></a>
+	<form action="http://localhost:8181/MyFirstWeb/boardUpdateForm" method="post">
+		<input type="hidden" name="boardNum" value="${board.boardNum }">
+		<input type="submit" value="수정하기">
+	</form>
 </body>
 </html>
