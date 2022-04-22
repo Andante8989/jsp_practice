@@ -170,7 +170,7 @@ public class BoardDAO {
 		
 		try {
 			con = ds.getConnection();
-			String sql = "UPDATE boardTbl SET title=?, content=?, writer=? WHERE board_num=?";
+			String sql = "UPDATE boardTbl SET title=?, content=?, writer=?, mdate=now() WHERE board_num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, title);
 			pstmt.setString(2, content);
@@ -187,6 +187,6 @@ public class BoardDAO {
 				e.printStackTrace();
 			}
 		}
-	} // boardDelete 끝나는 지점
+	} // boardUpdate 끝나는 지점
 
 }
