@@ -15,13 +15,13 @@ import kr.co.bacode.domain.userVO;
  * Servlet implementation class userLoginCheck
  */
 @WebServlet("/userLoginCheck")
-public class userLoginCheck extends HttpServlet {
+public class UserLoginCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public userLoginCheck() {
+    public UserLoginCheck() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -54,9 +54,9 @@ public class userLoginCheck extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		// 로그인폼에서 받아온 id, pw
-		String formId = request.getParameter("uId");
-		String formPw = request.getParameter("uPw");
-		
+		String formId = request.getParameter("userId");
+		String formPw = request.getParameter("userPw");
+		System.out.println(formId);
 		// db에서 받아온 id,pw 미리 선언
 		String dbId = null;
 		String dbPw = null;
@@ -75,14 +75,14 @@ public class userLoginCheck extends HttpServlet {
 		if(dbId != null && formId.equals(dbId)) {
 			if(formPw.equals(dbPw)) {
 				System.out.println("로그인에 성공하였습니다.");
-				reUrl = "loginWelcome.jsp";
+				reUrl = "http://localhost:8181/BaCode/user/mainSearch.jsp";
 			} else { 
 				System.out.println("비밀번호가 틀렸습니다.");
-				reUrl = "passwordFail.jsp";
+				reUrl = "http://localhost:8181/BaCode/user/loginIdPwFail.jsp";
 			}
 		} else {
 			System.out.println("아이디가 틀렸습니다.");
-			reUrl = "http://localhost:8181/BaCode/user/loginIdFail.jsp";
+			reUrl = "http://localhost:8181/BaCode/user/loginIdPwFail.jsp";
 		}
 		
 		response.sendRedirect(reUrl);
