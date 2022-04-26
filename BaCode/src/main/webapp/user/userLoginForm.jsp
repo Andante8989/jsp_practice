@@ -25,8 +25,9 @@
 				<input type="text" name="userId" placeholder="아이디를 입력하세요"><br/><br/>
 				<input type="password" name="userPw" placeholder="비밀번호를 입력하세요"><br/><br/>
 				<input type="submit" value="로그인">
-				<a href="/userInsertForm"><button>회원가입</button></a>
 			</form>
+			<br/>
+			<a href="/BaCode/dvCheck"><button>회원가입</button></a>
 		</div>
 		<div class="col-md-3"></div>
 	</div>
