@@ -10,7 +10,7 @@
 	<!-- form 을 만들어주세요
 	form 은 글쓴이 writer, 글제목 title, 본문content 정보를 전송합니다
 	목적지는 /boardInsert 로 하겠습니다 -->
-	<form action="/MyFirstWeb/boardInsert" method="post">
+	<form action="/MyFirstWeb/boardInsert.do" method="post">
 		제목 : <input type="text" name="title" >
 		글쓴이 : <input type="text" name="writer" ><br/>
 		본문 : <textarea cols="50" rows="15" name="content"></textarea><br/>	

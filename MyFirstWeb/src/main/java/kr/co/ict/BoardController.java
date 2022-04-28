@@ -1,6 +1,7 @@
 package kr.co.ict;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.ict.domain.BoardDAO;
+import kr.co.ict.domain.BoardVO;
 
 /**
  * Servlet implementation class BoardController
@@ -37,18 +39,31 @@ public class BoardController extends HttpServlet {
 	}
 	
 	protected void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// post방식을 처리하는 경우도 생기므로, 인코딩 설정
 		request.setCharacterEncoding("utf-8");
-		// 프론트 컨트롤러는 여러 주소 유형을 처리해야 하니 uri 부터 받아옵니다
 		String uri = request.getRequestURI();
-		// 포워딩시 .jsp주소의 경우를 미리 저장할 변수
 		String ui = null;
-		// dao 생성
 		BoardDAO dao = BoardDAO.getInstance();
 		if(uri.equals("/MyFirstWeb/boardList.do")) {
-			// boardList.do를 이용해 글 목록 페이지로 넘어가도록 로직을 작성해주세요.
-			ui = "/boardList";
-			response.sendRedirect("http://localhost:8181/MyFirstWeb/boardList");
+			 List<BoardVO> boardList = dao.getBoardList();  // DB연결해 전체 목록 가져다 주고 종료
+			 request.setAttribute("boardList" , boardList);
+			 ui = "/board/getBoardList.jsp";
+		} else if(uri.equals("/MyFirstWeb/boardDetail.do")) {			
+			String strBoardNum = request.getParameter("board_num");
+			int boardNum = Integer.parseInt(strBoardNum);			
+			BoardVO board = dao.getBoardDetail(boardNum);		
+			request.setAttribute("board" , board);
+			ui = "/board/boardDetail.jsp";
+		} else if(uri.equals("/MyFirstWeb/boardInsertForm.do")) {
+			ui = "/board/boardInsertForm.jsp";
+		} else if(uri.equals("/MyFirstWeb/boardInsert.do")) {
+			String writer = request.getParameter("writer");
+			String content = request.getParameter("content");
+			String title = request.getParameter("title");
+			dao.boardInsert(title, content, writer);
+			request.setAttribute("title" , title);
+			request.setAttribute("content" , content);
+			request.setAttribute("writer" , writer);
+			ui = "http://localhost:8181/MyFirstWeb/boardList";
 		}
 		
 		RequestDispatcher dp = request.getRequestDispatcher(ui);
