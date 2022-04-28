@@ -1,5 +1,4 @@
 INDEX VERSION 1.4+C:\eclipse\workspace2\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3212063938.index
 1125854846.index
 1683561173.index
 1468563917.index
