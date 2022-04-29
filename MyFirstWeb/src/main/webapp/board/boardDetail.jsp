@@ -17,12 +17,12 @@
 	마지막 쓴날짜 : ${board.mdate }
 	<hr/>
 	<!--  삭제번호를 서블릿 boardDelete로 보내야함 -->
-	<form action="http://localhost:8181/MyFirstWeb/boardDelete" method="post">
+	<form action="http://localhost:8181/MyFirstWeb/boardDelete.do" method="post">
 		<input type="hidden" name="boardNum" value="${board.boardNum }">
 		<input type="submit" value="삭제">
 	</form>
-	<a href="http://localhost:8181/MyFirstWeb/boardList"><button>목록으로 돌아가기</button></a>
-	<form action="http://localhost:8181/MyFirstWeb/boardUpdateForm" method="post">
+	<a href="http://localhost:8181/MyFirstWeb/boardList.do"><button>목록으로 돌아가기</button></a>
+	<form action="http://localhost:8181/MyFirstWeb/boardUpdateForm.do" method="post">
 		<input type="hidden" name="boardNum" value="${board.boardNum }">
 		<input type="submit" value="수정하기">
 	</form>

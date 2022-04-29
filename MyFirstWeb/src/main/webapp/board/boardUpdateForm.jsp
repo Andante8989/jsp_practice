@@ -8,7 +8,7 @@
 </head>
 <body>
 	${board } <hr/>
-	<form action="http://localhost:8181/MyFirstWeb/boardUpdate" method="post">
+	<form action="http://localhost:8181/MyFirstWeb/boardUpdate.do" method="post">
 		제목 : <input type="text" name="title" value="${board.title }" >
 		글쓴이 : <input type="text" name="writer" value="${board.writer }" readonly><br/>
 		본문 : <textarea cols="50" rows="15" name="content">${board.content }</textarea><br/>	
