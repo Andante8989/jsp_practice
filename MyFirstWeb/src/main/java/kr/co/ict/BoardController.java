@@ -12,8 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.ict.domain.BoardDAO;
 import kr.co.ict.domain.BoardVO;
+import kr.co.ict.service.BoardDeleteService;
 import kr.co.ict.service.BoardDetailService;
+import kr.co.ict.service.BoardInsertService;
 import kr.co.ict.service.BoardListService;
+import kr.co.ict.service.BoardUpdateFormService;
+import kr.co.ict.service.BoardUpdateService;
 import kr.co.ict.service.IBoardService;
 
 /**
@@ -62,41 +66,21 @@ public class BoardController extends HttpServlet {
 		} else if(uri.equals("/MyFirstWeb/boardInsertForm.do")) {
 			ui = "/board/boardInsertForm.jsp";
 		} else if(uri.equals("/MyFirstWeb/boardInsert.do")) {
-			String writer = request.getParameter("writer");
-			String content = request.getParameter("content");
-			String title = request.getParameter("title");
-			dao.boardInsert(title, content, writer);
-			request.setAttribute("title" , title);
-			request.setAttribute("content" , content);
-			request.setAttribute("writer" , writer);
-			ui = "/boardList.do";   // 리다이렉트시는 폴더명 없이 마지막 주소만 적습니다.
+			sv = new BoardInsertService();
+			sv.execute(request, response);
+			ui = "/boardList.do";   
 		} else if(uri.equals("/MyFirstWeb/boardDelete.do")) {
-			request.setCharacterEncoding("utf-8");
-			String strDeleteNum = request.getParameter("boardNum");
-			int deleteNum = Integer.parseInt(strDeleteNum);
-			System.out.println("삭제예정인 번호 : " + deleteNum);
-			dao.boardDelete(deleteNum);
+			sv = new BoardDeleteService();
+			sv.execute(request, response);
 			ui = "/boardList.do";
 		} else if(uri.equals("/MyFirstWeb/boardUpdateForm.do")) {
-			request.setCharacterEncoding("utf-8");
-			String strBoardNum = request.getParameter("boardNum");
-			int boardNum = Integer.parseInt(strBoardNum);
-			BoardVO board = dao.getBoardDetail(boardNum);
-			request.setAttribute("board" , board);
+			sv = new BoardUpdateFormService();
+			sv.execute(request, response);
 			ui = "/board/boardUpdateForm.jsp";
 		} else if(uri.equals("/MyFirstWeb/boardUpdate.do")) {
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
-			String writer = request.getParameter("writer");
-			String strBoardNum = request.getParameter("boardNum");
-			int boardNum = Integer.parseInt(strBoardNum);
-			dao.boardUpdate(title, content, writer, boardNum);
-			request.setAttribute("title" , title);
-			request.setAttribute("content" , content);
-			request.setAttribute("writer" , writer);
-			request.setAttribute("boardNum", boardNum);
-
-			ui = "boardDetail.do?board_num=" + boardNum;
+			sv = new BoardUpdateService();
+			sv.execute(request, response);
+			ui = "boardDetail.do?board_num=" + request.getParameter("boardNum");
 		}
 		
 		RequestDispatcher dp = request.getRequestDispatcher(ui);

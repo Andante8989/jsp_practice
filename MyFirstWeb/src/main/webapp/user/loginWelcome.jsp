@@ -20,6 +20,8 @@ if(id == null) {
 </form>
 <form action="userUpdateForm.jsp" method="post">
 <input type="submit" value="회원정보수정하기">
+	
 </form>
+<a href="/MyFirstWeb/boardList.do"><button>게시판 보러가기</button></a>
 </body>
 </html>

@@ -5,6 +5,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- 포워딩으로 먼저 넘어온 다음 리다이렉트를 이어서 실행하도록 해야 
+포워딩 / 리다이렉트 호출이 겹쳐서 에러가 나는걸 막을 수 있으므로
+이 경우만 예외적으로 스크립트릿을 이용한 리다이렉트를 사용합니다 -->
+세션값 : ${sessionScope.s_id }<br/>
+<c:if test="${sessionScope.s_id eq null }">
+	<!-- <script>location.href="http://localhost:8181/MyFirstWeb/"</script>  -->
+	<% response.sendRedirect("http://localhost:8181/MyFirstWeb/"); %>
+</c:if>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <!DOCTYPE html>
 <html>
