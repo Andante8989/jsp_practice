@@ -11,7 +11,7 @@
 세션값 : ${sessionScope.s_id }<br/>
 <c:if test="${sessionScope.s_id eq null }">
 	<!-- <script>location.href="http://localhost:8181/MyFirstWeb/"</script>  -->
-	<% response.sendRedirect("http://localhost:8181/MyFirstWeb/"); %>
+	<%-- response.sendRedirect("http://localhost:8181/MyFirstWeb/"); --%>
 </c:if>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <!DOCTYPE html>
@@ -54,7 +54,9 @@
 				</c:forEach>
 		</tbody>
 	</table>
-	<a href="http://localhost:8181/MyFirstWeb/boardInsertForm.do"><button>글쓰기</button></a>
+	<c:if test="${sessionScope.s_id ne null}">
+		<a href="http://localhost:8181/MyFirstWeb/boardInsertForm.do"><button>글쓰기</button></a>
+	</c:if>
 	</div>
 </body>
 </html>
