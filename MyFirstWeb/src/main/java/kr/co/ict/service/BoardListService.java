@@ -27,11 +27,14 @@ public class BoardListService implements IBoardService {
 		/*if(sId == null) {
 			response.sendRedirect("http://localhost:8181/MyFirstWeb/");
 		} */
-		
+		// 1. pageNum으로 들어오는 값을 받아서 getBoardList에 넣어주세요
+		// 2. pageNum 이 안들어왔을때 자동으로 1이 getBoardList에 들어가도록 조치해주세요.
+		String strPageNum = request.getParameter("pageNum");
+		int pageNum = Integer.parseInt(strPageNum);
 		
 		// DAO는 다시 생성해줘야 합니다
 		BoardDAO dao = BoardDAO.getInstance();
-		List<BoardVO> boardList = dao.getBoardList();  // DB연결해 전체 목록 가져다 주고 종료
+		List<BoardVO> boardList = dao.getBoardList(pageNum);  // DB연결해 전체 목록 가져다 주고 종료
 		request.setAttribute("boardList" , boardList);
 		
 	}

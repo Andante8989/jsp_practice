@@ -38,7 +38,7 @@ public class BoardDAO {
 	// 전체 글을 가져오므로 List<BoardVO>를 리턴하면 됩니다.
 	// 작성시 UserDAO 의 getAllUserList()메서드를 참조해주세요
 	
-	public List<BoardVO> getBoardList() {
+	public List<BoardVO> getBoardList(int pageNum) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -47,8 +47,9 @@ public class BoardDAO {
 		
 		try {
 			con = ds.getConnection();
-			String sql = "SELECT * FROM boardTbl ORDER BY board_num DESC";
+			String sql = "SELECT * FROM boardTbl ORDER BY board_num DESC limit ((?-1)*10), 10";
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pageNum);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -84,7 +85,7 @@ public class BoardDAO {
 		ResultSet rs = null;
 		
 		BoardVO board = new BoardVO();
-		
+		// upHit(boardNum); getBoardDetail 내부에서 호출하도록 해도 조회수는 올라감 다만 수정을 해도 hit이 1올라가는 단점
 		try {
 			con = ds.getConnection();
 			String sql = "SELECT * FROM boardTbl WHERE board_num=?";
@@ -188,5 +189,28 @@ public class BoardDAO {
 			}
 		}
 	} // boardUpdate 끝나는 지점
+	
+	public void upHit (int boardNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			String sql = "UPDATE boardTbl SET hit = hit + 1 WHERE board_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardNum);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+				pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	} // upHit 종료지점, 조회수 증가 로직 끝
+	
 
 }
