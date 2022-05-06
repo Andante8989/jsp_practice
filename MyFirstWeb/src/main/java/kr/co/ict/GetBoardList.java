@@ -35,9 +35,10 @@ public class GetBoardList extends HttpServlet {
 		/* 
 		
 		*/
+		 String strPageNum = request.getParameter("pageNum");
+		 int pageNum = Integer.parseInt(strPageNum);
 		 BoardDAO dao = BoardDAO.getInstance(); //싱글턴에 의해 static영역 변수 주소만 받아옴
-		 List<BoardVO> boardList = dao.getBoardList();  // DB연결해 전체 목록 가져다 주고 종료
-		 System.out.println(boardList);
+		 List<BoardVO> boardList = dao.getBoardList(pageNum);  // DB연결해 전체 목록 가져다 주고 종료
 		 request.setAttribute("boardList" , boardList);
 		
 		 // 포워딩으로 getBoardList.jsp와 연결하기

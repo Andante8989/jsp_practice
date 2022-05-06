@@ -47,9 +47,11 @@ public class BoardDAO {
 		
 		try {
 			con = ds.getConnection();
-			String sql = "SELECT * FROM boardTbl ORDER BY board_num DESC limit ((?-1)*10), 10";
+			// 페이지 번호에 따른 시작 인덱스 번호는 자바변수로 먼저 구합니다.
+			int num = (pageNum -1) * 10;
+			String sql = "SELECT * FROM boardTbl ORDER BY board_num DESC limit ?, 10;";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, pageNum);
+			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -211,6 +213,34 @@ public class BoardDAO {
 			}
 		}
 	} // upHit 종료지점, 조회수 증가 로직 끝
+	
+	public getAllBoardCount (int boardCount, int currentPage) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try { 
+			con = ds.getConnection();
+			String sql = "SELECT count(*) FROM boardTbl;";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+				pstmt.close();
+				rs.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return currentPage;
+	} // getAllBoardCount 종료 지점
 	
 
 }
