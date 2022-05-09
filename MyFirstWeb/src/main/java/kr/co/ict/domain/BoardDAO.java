@@ -214,19 +214,20 @@ public class BoardDAO {
 		}
 	} // upHit 종료지점, 조회수 증가 로직 끝
 	
-	public getAllBoardCount (int boardCount, int currentPage) {
+	public int getBoardCount () {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		// int라서 일단 0으로 선언
+		int boardCount = 0;
 		try { 
 			con = ds.getConnection();
 			String sql = "SELECT count(*) FROM boardTbl;";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				
-				
+			// 위에 선언했던 boardCount에 입력
+			if(rs.next()) {
+				boardCount = rs.getInt(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -239,8 +240,9 @@ public class BoardDAO {
 				e.printStackTrace();
 			}
 		}
-		return currentPage;
+		return boardCount;
 	} // getAllBoardCount 종료 지점
+	
 	
 
 }
