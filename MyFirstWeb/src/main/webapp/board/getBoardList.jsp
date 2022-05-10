@@ -26,6 +26,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div class="container">
 	<h1>/boardList 임시 페이지</h1>
 	<div class="col-md-8">
 	<table class="table table-hover table-info table-responsive">
@@ -58,24 +59,29 @@
 	<!-- foreach문의 start, end속성을 이용해 숫자를 알맞게 깔아주세요 -->
 		
 	<nav aria-label="Page navigation example">
-  		<ul class="pagination">
-  			<c:if test="${buttons.startPage ne 1}">
-				<a href="http://localhost:8181/MyFirstWeb/boardList.do?pageNum=${buttons.startPage - 1}"><button class="btn btn-hover btn-secondary">이전</button></a>
-			</c:if>
+  		<ul class="pagination justify-content-center">
+  			<li class="page-item">
+	  			<c:if test="${buttons.startPage ne 1}">
+					<a class="page-link" href="http://localhost:8181/MyFirstWeb/boardList.do?pageNum=${buttons.startPage - 1}">이전</a>
+				</c:if>
+			</li>
 			<c:forEach begin="${buttons.startPage }" end="${buttons.endPage }" step="1" var="pageNum">
-				<li class="page-item active" aria-current="page">
+				<li class="page-item  ${buttons.currentPage eq pageNum ? 'active' : '' }" aria-current="page">
 					<a class="page-link" href="http://localhost:8181/MyFirstWeb/boardList.do?pageNum=${pageNum }">${pageNum}</a>
 				</li>
 			</c:forEach>
-	  		<c:if test="${buttons.endPage ne buttons.totalPages }">
-				<a href="http://localhost:8181/MyFirstWeb/boardList.do?pageNum=${buttons.endPage + 1}"><button class="btn btn-hover btn-secondary">다음</button></a>
-			</c:if></br>
+			<li class="page-item">
+		  		<c:if test="${buttons.endPage ne buttons.totalPages }">
+					<a class="page-link" href="http://localhost:8181/MyFirstWeb/boardList.do?pageNum=${buttons.endPage + 1}">다음</a>
+				</c:if></br>
+			</li>
 	  	</ul>
 	</nav>
 	
 	<c:if test="${sessionScope.s_id ne null}">
 		<a href="http://localhost:8181/MyFirstWeb/boardInsertForm.do"><button>글쓰기</button></a>
 	</c:if>
+	</div>
 	</div>
 </body>
 </html>
