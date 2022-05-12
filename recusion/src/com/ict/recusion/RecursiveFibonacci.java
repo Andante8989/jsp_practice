@@ -17,8 +17,7 @@ public class RecursiveFibonacci {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(fibonacci(11
-				));
+		System.out.println(fibonacci(11));
 		System.out.println("호출 횟수 : " + count);
 		
 
